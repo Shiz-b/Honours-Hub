@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1752044253967bkvkbr43s",
+    "name": "prof",
+    "email": "dummyuser@gmail.com",
+    "password": "$2a$10$JoLQnIeo9K.iKY9RmXzo..W2dqVMxguTlGjrPBnEJuPfj6QFQGutK",
+    "faculty": "science",
+    "school": "physics",
+    "profilePicture": null,
+    "createdAt": "2025-07-09T06:57:33.967Z"
+  },
+  {
+    "id": "1752044281535pyd25zuuk",
+    "name": "prof",
+    "email": "dummyprof@gmail.com",
+    "password": "$2a$10$AbLMCBdtWyXCnENh.4c8Wu0WYgp8YQCayWIqwXL6w.TI3jZbXjEcO",
+    "faculty": "science",
+    "school": "physics",
+    "profilePicture": null,
+    "createdAt": "2025-07-09T06:58:01.535Z"
+  }
+]

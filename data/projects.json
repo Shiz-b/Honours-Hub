@@ -1,0 +1,52 @@
+[
+  {
+    "id": "proj_001",
+    "title": "Machine Learning for Climate Data Analysis",
+    "description": "This project involves developing machine learning models to analyze climate data patterns and predict future climate trends. Students will work with large datasets and implement various ML algorithms.",
+    "requirements": "Strong background in Python programming, knowledge of machine learning fundamentals, and experience with data analysis libraries (pandas, numpy, scikit-learn).",
+    "duration": "12 months",
+    "academicId": "academic_001",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "status": "open"
+  },
+  {
+    "id": "proj_002",
+    "title": "Blockchain-based Supply Chain Management",
+    "description": "Design and implement a blockchain-based system for supply chain transparency and traceability. The project will focus on smart contracts and decentralized applications.",
+    "requirements": "Knowledge of blockchain technology, smart contracts (Solidity), and web development (JavaScript, React).",
+    "duration": "10 months",
+    "academicId": "academic_002",
+    "createdAt": "2024-01-20T14:30:00Z",
+    "status": "open"
+  },
+  {
+    "id": "proj_003",
+    "title": "IoT-based Smart Home Security System",
+    "description": "Develop an Internet of Things (IoT) based smart home security system with real-time monitoring, alert systems, and mobile app integration.",
+    "requirements": "Experience with IoT devices, embedded systems programming, mobile app development, and networking protocols.",
+    "duration": "8 months",
+    "academicId": "academic_003",
+    "createdAt": "2024-02-01T09:15:00Z",
+    "status": "open"
+  },
+  {
+    "id": "proj_004",
+    "title": "AI-powered Medical Diagnosis Assistant",
+    "description": "Create an AI system that can assist medical professionals in diagnosing diseases from medical images and patient data.",
+    "requirements": "Strong background in artificial intelligence, computer vision, medical informatics, and deep learning frameworks (TensorFlow/PyTorch).",
+    "duration": "12 months",
+    "academicId": "academic_001",
+    "createdAt": "2024-02-10T11:45:00Z",
+    "status": "open"
+  },
+  {
+    "id": "proj_005",
+    "title": "Quantum Computing Algorithm Implementation",
+    "description": "Research and implement quantum computing algorithms for specific computational problems, comparing their performance with classical algorithms.",
+    "requirements": "Strong mathematical background, knowledge of quantum mechanics, and experience with quantum programming languages (Qiskit, Cirq).",
+    "duration": "11 months",
+    "academicId": "academic_004",
+    "createdAt": "2024-02-15T16:20:00Z",
+    "status": "open"
+  }
+]
