@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Honours Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4a148c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .role-selector {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .role-button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: 2px solid #4a148c;
+            background-color: white;
+            color: #4a148c;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .role-button.active {
+            background-color: #4a148c;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .submit-btn {
+            background-color: #4a148c;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background-color: #7c43bd;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Register for Honours Hub</h1>
+    </header>
+    <div class="container">
+        <div class="role-selector">
+            <button class="role-button active" onclick="showForm('student')">Student</button>
+            <button class="role-button" onclick="showForm('academic')">Academic</button>
+        </div>
+
+        <!-- Student Registration Form -->
+        <form id="studentForm" class="registration-form">
+            <h2>Student Registration</h2>
+            <div class="form-group">
+                <label for="student-first-name">First Name:</label>
+                <input type="text" id="student-first-name" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="student-last-name">Last Name:</label>
+                <input type="text" id="student-last-name" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="student-degree">Degree:</label>
+                <input type="text" id="student-degree" name="degree" required>
+            </div>
+            <div class="form-group">
+                <label for="student-year">Year of Study:</label>
+                <select id="student-year" name="yearOfStudy" required>
+                    <option value="">Select Year</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                    <option value="5">5th Year</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="student-email">Email:</label>
+                <input type="email" id="student-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="student-password">Password:</label>
+                <input type="password" id="student-password" name="password" required>
+            </div>
+            <button type="submit" class="submit-btn">Register as Student</button>
+        </form>
+
+        <!-- Academic Registration Form -->
+        <form id="academicForm" class="registration-form hidden">
+            <h2>Academic Registration</h2>
+            <div class="form-group">
+                <label for="academic-name">Name:</label>
+                <input type="text" id="academic-name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="academic-email">Email:</label>
+                <input type="email" id="academic-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="academic-password">Password:</label>
+                <input type="password" id="academic-password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="academic-faculty">Faculty:</label>
+                <select id="academic-faculty" name="faculty" required>
+                    <option value="">Select Faculty</option>
+                    <option value="engineering">Engineering</option>
+                    <option value="science">Science</option>
+                    <option value="arts">Arts</option>
+                    <option value="business">Business</option>
+                    <option value="medicine">Medicine</option>
+                    <option value="law">Law</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="academic-school">School:</label>
+                <select id="academic-school" name="school" required>
+                    <option value="">Select School</option>
+                    <!-- Options will be populated based on faculty selection -->
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Register as Academic</button>
+        </form>
+    </div>
+
+    <script>
+        function showForm(role) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.role-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Hide all forms
+            document.querySelectorAll('.registration-form').forEach(form => {
+                form.classList.add('hidden');
+            });
+            
+            // Show selected form
+            if (role === 'student') {
+                document.getElementById('studentForm').classList.remove('hidden');
+            } else {
+                document.getElementById('academicForm').classList.remove('hidden');
+            }
+        }
+
+        // Handle faculty change to populate schools
+        document.getElementById('academic-faculty').addEventListener('change', function() {
+            const faculty = this.value;
+            const schoolSelect = document.getElementById('academic-school');
+            
+            // Clear existing options
+            schoolSelect.innerHTML = '<option value="">Select School</option>';
+            
+            // Add schools based on faculty
+            const schools = {
+                'engineering': ['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Civil Engineering'],
+                'science': ['Physics', 'Chemistry', 'Biology', 'Mathematics'],
+                'arts': ['History', 'Philosophy', 'Literature', 'Fine Arts'],
+                'business': ['Management', 'Finance', 'Marketing', 'Accounting'],
+                'medicine': ['Internal Medicine', 'Surgery', 'Pediatrics', 'Psychiatry'],
+                'law': ['Constitutional Law', 'Criminal Law', 'Corporate Law', 'International Law']
+            };
+            
+            if (schools[faculty]) {
+                schools[faculty].forEach(school => {
+                    const option = document.createElement('option');
+                    option.value = school.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = school;
+                    schoolSelect.appendChild(option);
+                });
+            }
+        });
+
+        // Handle form submissions
+        document.getElementById('studentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const studentData = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                degree: formData.get('degree'),
+                yearOfStudy: formData.get('yearOfStudy'),
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+            
+            try {
+                const response = await fetch('/api/register/student', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(studentData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Student registration successful! You can now log in.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Registration failed: ' + result.error);
+                }
+            } catch (error) {
+                alert('Registration failed: ' + error.message);
+            }
+        });
+
+        document.getElementById('academicForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const academicData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                faculty: formData.get('faculty'),
+                school: formData.get('school')
+            };
+            
+            try {
+                const response = await fetch('/api/register/academic', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(academicData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Academic registration successful! You can now log in.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Registration failed: ' + result.error);
+                }
+            } catch (error) {
+                alert('Registration failed: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Honours Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f8;
+            color: #333;
+        }
+        
+        .header {
+            background-color: #4a148c;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logout-btn {
+            background-color: #7c43bd;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .logout-btn:hover {
+            background-color: #9c5dc4;
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-item {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-item:hover {
+            background-color: #e9ecef;
+        }
+        
+        .nav-item.active {
+            background-color: #4a148c;
+            color: white;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .section h2 {
+            color: #4a148c;
+            margin-bottom: 20px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .project-title {
+            color: #4a148c;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .project-description {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: #4a148c;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #7c43bd;
+        }
+        
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #dee2e6;
+        }
+        
+        .profile-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+        
+        .application-status {
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .status-pending {
+            background-color: #fef3c7;
+            color: #f59e0b;
+        }
+        
+        .status-accepted {
+            background-color: #d1fae5;
+            color: #10b981;
+        }
+        
+        .status-rejected {
+            background-color: #fed7d7;
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Honours Hub - Student Dashboard</h1>
+        <div class="user-info">
+            <span id="userName">Welcome, Student!</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+    
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="nav-item active" onclick="showSection('profile')">My Profile</div>
+            <div class="nav-item" onclick="showSection('library')">Library</div>
+            <div class="nav-item" onclick="showSection('applications')">Applications</div>
+            <div class="nav-item" onclick="showSection('calendar')">Calendar</div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Profile Section -->
+            <div id="profile" class="section active">
+                <h2>My Profile</h2>
+                <div class="profile-form">
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="degree">Degree:</label>
+                        <input type="text" id="degree" name="degree">
+                    </div>
+                    <div class="form-group">
+                        <label for="yearOfStudy">Year of Study:</label>
+                        <input type="text" id="yearOfStudy" name="yearOfStudy">
+                    </div>
+                    <button class="btn btn-primary" onclick="updateProfile()">Update Profile</button>
+                </div>
+            </div>
+            
+            <!-- Library Section -->
+            <div id="library" class="section">
+                <h2>Project Library</h2>
+                <div class="loading">Loading projects...</div>
+                <div id="projectsList"></div>
+            </div>
+            
+            <!-- Applications Section -->
+            <div id="applications" class="section">
+                <h2>My Applications</h2>
+                <div class="loading">Loading applications...</div>
+                <div id="applicationsList"></div>
+            </div>
+            
+            <!-- Calendar Section -->
+            <div id="calendar" class="section">
+                <h2>Calendar</h2>
+                <div class="loading">Loading meetings...</div>
+                <div id="meetingsList"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentUser = null;
+        
+        // Check authentication on page load
+        window.addEventListener('load', function() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (!token || !user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            currentUser = JSON.parse(user);
+            if (currentUser.role !== 'student') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            document.getElementById('userName').textContent = `Welcome, ${currentUser.name}!`;
+            loadProfile();
+        });
+        
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.target.classList.add('active');
+            
+            // Load section-specific data
+            if (sectionName === 'library') {
+                loadProjects();
+            } else if (sectionName === 'applications') {
+                loadApplications();
+            } else if (sectionName === 'calendar') {
+                loadMeetings();
+            }
+        }
+        
+        async function loadProfile() {
+            try {
+                const response = await fetch('/api/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const profile = await response.json();
+                    document.getElementById('firstName').value = profile.firstName || '';
+                    document.getElementById('lastName').value = profile.lastName || '';
+                    document.getElementById('email').value = profile.email || '';
+                    document.getElementById('degree').value = profile.degree || '';
+                    document.getElementById('yearOfStudy').value = profile.yearOfStudy || '';
+                
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+        
+        async function loadProjects() {
+            const projectsList = document.getElementById('projectsList');
+            projectsList.innerHTML = '<div class=\"loading\">Loading projects...</div>';
+            
+            try {
+                const response = await fetch('/api/projects', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const projects = await response.json();
+                    projectsList.innerHTML = '';
+                    
+                    projects.forEach(project => {
+                        const projectCard = document.createElement('div');
+                        projectCard.className = 'project-card';
+                        projectCard.innerHTML = `
+                            <div class=\"project-title\">${project.title}</div>
+                            <div class=\"project-description\">${project.description}</div>
+                            <div><strong>Duration:</strong> ${project.duration}</div>
+                            <div><strong>Requirements:</strong> ${project.requirements}</div>
+                            <div class=\"project-actions\" style=\"margin-top: 15px;\">
+                                <button class=\"btn btn-secondary\" onclick=\"viewProject('${project.id}')\">Learn More</button>
+                                <button class=\"btn btn-primary\" onclick=\"applyToProject('${project.id}')\">Apply</button>
+                            </div>
+                        `;
+                        projectsList.appendChild(projectCard);
+                    });
+                } else {
+                    projectsList.innerHTML = '<p>Error loading projects</p>';
+                }
+            } catch (error) {
+                projectsList.innerHTML = '<p>Error loading projects</p>';
+            }
+        }
+        
+        async function loadApplications() {
+            const applicationsList = document.getElementById('applicationsList');
+            applicationsList.innerHTML = '<div class=\"loading\">Loading applications...</div>';
+            
+            try {
+                const response = await fetch('/api/applications', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const applications = await response.json();
+                    applicationsList.innerHTML = '';
+                    
+                    if (applications.length === 0) {
+                        applicationsList.innerHTML = '<p>No applications yet.</p>';
+                        return;
+                    }
+                    
+                    applications.forEach(application => {
+                        const applicationCard = document.createElement('div');
+                        applicationCard.className = 'project-card';
+                        applicationCard.innerHTML = `
+                            <div class=\"project-title\">Application #${application.id}</div>
+                            <div class=\"project-description\">Project ID: ${application.projectId}</div>
+                            <div><strong>Status:</strong> <span class=\"application-status status-${application.status}\">${application.status}</span></div>
+                            <div><strong>Applied:</strong> ${new Date(application.appliedAt).toLocaleDateString()}</div>
+                            ${application.message ? `<div><strong>Message:</strong> ${application.message}</div>` : ''}
+                        `;
+                        applicationsList.appendChild(applicationCard);
+                    });
+                } else {
+                    applicationsList.innerHTML = '<p>Error loading applications</p>';
+                }
+            } catch (error) {
+                applicationsList.innerHTML = '<p>Error loading applications</p>';
+            }
+        }
+        
+        function loadMeetings() {
+            const meetingsList = document.getElementById('meetingsList');
+            meetingsList.innerHTML = '<p>Calendar functionality coming soon...</p>';
+        }
+        
+        async function applyToProject(projectId) {
+            const message = prompt('Enter a message for your application (optional):');
+            if (message === null) return; // User cancelled
+            
+            try {
+                const response = await fetch(`/api/apply/${projectId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: message || '' })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Application submitted successfully!');
+                    loadApplications(); // Refresh applications
+                } else {
+                    alert('Application failed: ' + result.error);
+                }
+            } catch (error) {
+                alert('Application failed: ' + error.message);
+            }
+        }
+        
+        function viewProject(projectId) {
+            alert(`View project details for project ID: ${projectId}`);
+        }
+        
+        function updateProfile() {
+            alert('Profile update functionality coming soon...');
+        }
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
