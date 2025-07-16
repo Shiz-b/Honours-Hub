@@ -9,5 +9,16 @@
     "password": "$2a$10$cykGsjPzAqNNjlpFu/90j.hknlb4Fz9kVbd9iCAwuEsacmGQA0c/q",
     "profilePicture": null,
     "createdAt": "2025-07-09T06:56:44.945Z"
+  },
+  {
+    "id": "1752046032977vbcg0xuqt",
+    "firstName": "sania",
+    "lastName": "demo",
+    "degree": "Science",
+    "yearOfStudy": "4",
+    "email": "sania@gmail.com",
+    "password": "$2a$10$GCRCY/C3DdUD..gR0a2cfuTa3di5eqsH1Zo8iNYpIjmELybBDaEDm",
+    "profilePicture": null,
+    "createdAt": "2025-07-09T07:27:12.977Z"
   }
 ]
